@@ -30,6 +30,8 @@ contract ZombieFactory {
     }
 
     function createRandomZombie(string memory _name) public {
+        // this function cannot be called twice by the same player
+        require(ownerZombieCount[msg.sender] == 0);
         uint randDna = _generateRandomDna(_name);
         _createZombie(_name, randDna);
     }
