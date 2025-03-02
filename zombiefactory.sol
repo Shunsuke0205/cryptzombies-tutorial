@@ -1,6 +1,8 @@
 pragma solidity >=0.5.0 <0.6.0;
 
-contract ZombieFactory {
+import "./ownable.sol";
+
+contract ZombieFactory is Ownable {
     
     event NewZombie(uint zombieId, string name, uint dna);
 
@@ -33,6 +35,7 @@ contract ZombieFactory {
         // this function cannot be called twice by the same player
         require(ownerZombieCount[msg.sender] == 0);
         uint randDna = _generateRandomDna(_name);
+        randDna = randDna - randDna % 100;
         _createZombie(_name, randDna);
     }
 }
